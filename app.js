@@ -1,13 +1,16 @@
-const express = require('express');
+const express = require("express");
+
 const app = express();
-const PORT = 4000 || process.env.PORT;
 
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
+
+// importing Auth context
+
+// Register
 app.get('/',(req,res)=>{
-    try {
-        res.send("Welcome to OnBoarding APIS");
-    } catch (error) {
-        res.send("Something Went wrong",error)
-    }
-
+    res.send("Welcome to Authication and Authsation")
 })
-app.listen(PORT,()=> console.log(`App is listening on port http://localhost:${PORT}`))
+
+
+module.exports = app;

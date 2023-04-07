@@ -1,0 +1,30 @@
+{
+  "name": "authication-project",
+  "version": "1.0.0",
+  "description": "authication with jwt tokens",
+  "main": "app.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "authication",
+    "jwt",
+    "login",
+    "signup",
+    "signin"
+  ],
+  "author": "gupta197",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
+    "mongoose": "^7.0.0",
+    "request": "^2.88.2"
+  }
+}
