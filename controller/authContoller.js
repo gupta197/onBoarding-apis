@@ -6,17 +6,14 @@ const commonFunctions = require("../commonFunctions");
 module.exports = {
   login: async (req, res) => {
     try {
-      // Get user input
       const { email, password } = req.body;
       const mainValues = [email, password];
-      // Validate user input
       if (commonFunctions.checkBlank(mainValues)) {
         return res.status(400).send({
           success: false,
           message: "All input is required",
         });
       }
-      // Validate if user exist in our database
       const user = await User.findOne({ email });
 
       if (user && (await bcrypt.compare(password, user.password))) {
@@ -29,7 +26,6 @@ module.exports = {
         const token = await jwt.sign({ id: user._id,userId:user.userId }, process.env.SECRET_KEY, {
           expiresIn: process.env.JWT_EXPIRE,
         });
-        // return res.cookie({"token":token}).json({success:true,message:'LoggedIn Successfully'});
         return res.status(200).send({
           success: true,
           message: "LoggedIn Successfully",
@@ -47,11 +43,9 @@ module.exports = {
         message: err.message,
       });
     }
-    // Our register logic ends here
   },
   register: async (req, res) => {
     try {
-      // Get user input
       const { firstName, lastName, email, password } = req.body;
       const mainValues = [firstName, email, password];
       if (commonFunctions.checkBlank(mainValues)) {
@@ -60,9 +54,6 @@ module.exports = {
           message: "Bad Request",
         });
       }
-
-      // check if user already exist
-      // Validate if user exist in our database
       const oldUser = await User.findOne({ email });
 
       if (oldUser) {
