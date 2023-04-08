@@ -85,6 +85,7 @@ module.exports = {
         link: verificationToken,
         userId: user.userId,
         subject: "Verify your email",
+        text:"Verify your email",
         sendTo: email,
         html: `Hi ${firstName},
         <br/>
@@ -166,6 +167,7 @@ module.exports = {
           link: verificationToken,
           userId: userdetail.userId,
           subject: "Reset your password",
+          text:"Reset your password",
           sendTo: email,
           html: `Hello ${userdetail.firstName},<br/><br/>
 
@@ -263,6 +265,7 @@ module.exports = {
     let template = {
       subject: "Password successfully changed",
       sendTo: userDetail.email,
+      text:"Password change",
       html: `Hello ${userDetail.firstName}
         <br/>
         <br/>
