@@ -2,7 +2,7 @@ const mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**
- * User Schema
+ * VerficationLink Schema
  */
 var verificationLinkSchema = new Schema({
   link: {

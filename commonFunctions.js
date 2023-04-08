@@ -70,8 +70,6 @@ exports.sendHttpRequest = function (opts) {
         console.log("http-----", body);
         error = new Error("Couldn't request with external server ");
         error.code = response.statusCode;
-        //console.log( 'Error from external server', error );
-        //console.log('Response----->', body);
         return reject(error);
       }
       console.log("Response from external server", response, body);
@@ -102,9 +100,6 @@ exports.sendEmail = function (options) {
 exports.get_time_diff = function (startdate, endDate, returnType) {
   endDate = moment(endDate);//now
   startdate = moment(startdate);
-  // console.log(startdate.diff(endDate, 'minutes')) // 44700
-  // console.log(startdate.diff(endDate, 'hours')) // 745
-  // console.log(startdate.diff(endDate, 'days')) // 31
-  // console.log(startdate.diff(endDate, 'weeks')) // 4
+  // Return type should be 'minutes','days','weeks','hours'
   return startdate.diff(endDate, returnType)
 };
