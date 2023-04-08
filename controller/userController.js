@@ -15,7 +15,7 @@ exports.setup2fa = async function (req, res) {
     if (!isFlagHasValue) {
       return res.status(400).send({
         success: false,
-        message: "Flag value should be boolean value",
+        message: "Flag value should be boolean value"
       });
     }
 
@@ -23,7 +23,7 @@ exports.setup2fa = async function (req, res) {
     if (!userDetail) {
       return res.status(400).send({
         success: false,
-        message: "no user found with such userId!!!",
+        message: "no user found with such userId!!!"
       });
     }
     let flagMessage = flag == 'true' ? "enable" : "disable";
