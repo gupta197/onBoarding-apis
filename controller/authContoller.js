@@ -23,6 +23,12 @@ module.exports = {
             message: "User not verified",
           });
         }
+        if(user.is2FAenabled){
+          return res.status(200).send({
+            success: true,
+            message: "OTP shared to registered email, please check!!!",
+          });
+        }
         const token = await jwt.sign({ id: user._id,userId:user.userId }, process.env.SECRET_KEY, {
           expiresIn: process.env.JWT_EXPIRE,
         });
