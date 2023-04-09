@@ -24,6 +24,7 @@ app.post("/forgetPassword",auth.forgetPassword);
 // Reset Passwords
 app.post("/resetPassword/:id/:token",auth.resetPassword);
 app.post("/verifyOtp",auth.resetPassword);
+app.post("/resentOtp",auth.resetPassword);
 app.use("/user",users);
 
 app.get('/',(req,res)=>{
