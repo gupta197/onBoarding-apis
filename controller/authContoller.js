@@ -364,7 +364,7 @@ module.exports = {
           new Date(),
           otpDetail.updateAt,
           "minutes"
-        ) > 3
+        ) > 1
           ? true
           : false;
           console.log(commonFunctions.get_time_diff(
@@ -458,27 +458,25 @@ const sendOtp = async (userDetail, isResent) => {
         // "hours"
         'minutes'
       );
-      console.log(getTimeDiff)
       let isExpire =
         getTimeDiff > 1 || previousOtp.resentAttempt < 3 ? true : false; // Currently set as 5 mint
-        console.log(isExpire)
-      if (isExpire) {
+        if (!isExpire) {
+          resolve("limit exceeded");
+        }
         let otpVerficationDetail = {
           otp: otp,
           verificaionAttempt: 0,
-          resentAttempt: isResent && !isExpire ? previousOtp.resentAttempt + 1 : 0,
+          resentAttempt: isResent || !(getTimeDiff > 1) ? previousOtp.resentAttempt + 1 : 0,
           updateAt: new Date(),
         };
         if (getTimeDiff > 1) otpVerficationDetail.createdAt = new Date();
-
         await otpVerification.updateOne(
           { userId: userDetail.userId },
           otpVerficationDetail
         );
         commonFunctions.sendEmail(template);
-        resolve("OTP send");
-      }
-      resolve("limit exceeded");
+
+      resolve("OTP send");
     } catch (error) {
       reject(error.message);
     }
