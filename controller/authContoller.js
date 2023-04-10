@@ -466,7 +466,7 @@ const sendOtp = async (userDetail, isResent) => {
         let otpVerficationDetail = {
           otp: otp,
           verificaionAttempt: 0,
-          resentAttempt: isResent && isExpire ? previousOtp.resentAttempt + 1 : 0,
+          resentAttempt: isResent && !isExpire ? previousOtp.resentAttempt + 1 : 0,
           updateAt: new Date(),
         };
         if (getTimeDiff > 1) otpVerficationDetail.createdAt = new Date();
