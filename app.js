@@ -12,7 +12,7 @@ const auth = require('./controller/authContoller')
 // Register
 app.post("/register", auth.register);
 
-// Login
+// Login and setup 2 factor authication
 app.post("/login",auth.login);
 
 // Verify Email
@@ -23,7 +23,9 @@ app.post("/forgetPassword",auth.forgetPassword);
 
 // Reset Passwords
 app.post("/resetPassword/:id/:token",auth.resetPassword);
+// OTP verification
 app.post("/verifyOTP",auth.verifyOTP);
+//otp share
 app.post("/resendOtp",auth.resendOtp);
 app.use("/user",users);
 
