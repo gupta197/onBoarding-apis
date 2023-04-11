@@ -1,14 +1,10 @@
 const router = require('express').Router();
-const {setup2fa,updateUserDetail} = require('../controller/userController');
+const {setup2fa,getUserDetail} = require('../controller/userController');
 const auth = require("../middleware/auth");
-// Enable and Disable 2 factor authication
+// Enable and disble the 2fA
 router.post('/2fa',auth,setup2fa);
-// Get User detail
-router.post('/:id',auth,updateUserDetail);
-
-router.get('/',auth,async(req,res)=>{
-    res.send("Welcome to User Page")
-});
+// Get User Detail
+router.get('/',auth,getUserDetail);
 
 
 module.exports = router;

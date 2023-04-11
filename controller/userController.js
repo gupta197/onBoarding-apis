@@ -1,12 +1,6 @@
 const User = require("../model/user");
 const commonFunctions = require("../commonFunctions");
 
-exports.updateUserDetail = async (req, res) => {
-  return res.status(200).send({
-    success: true,
-    message: "Updated",
-  });
-};
 exports.setup2fa = async function (req, res) {
   try {
     const { flag } = req.body;
@@ -51,13 +45,20 @@ exports.setup2fa = async function (req, res) {
     return res.status(500).send({ success: false, message: error });
   }
 };
-exports.getUser = async (req, res) => {
+exports.getUserDetail = async (req, res) => {
   try {
-    const user = await User.find();
+    const { userId } = req.user;
+    if (commonFunctions.checkBlank([userId])) {
+      return res.status(400).send({
+        success: false,
+        message: "Bad Request",
+      });
+    }
+    const user = await User.find({userId});
     if (!user) {
       return res.status(200).send({ success: true, message: "No User Found" });
     }
-    return res.status(200).send({ success: true, message: user });
+    return res.status(200).send({ success: true, message: "User detail found successfully",user });
   } catch (error) {
     return res.status(500).send({ success: false, message: error });
   }

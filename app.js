@@ -27,6 +27,7 @@ app.post("/resetPassword/:id/:token",auth.resetPassword);
 app.post("/verifyOTP",auth.verifyOTP);
 //otp share
 app.post("/resendOtp",auth.resendOtp);
+// Handle multiple routes like 2FA and User details
 app.use("/user",users);
 
 app.get('/',(req,res)=>{
