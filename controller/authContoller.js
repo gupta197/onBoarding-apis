@@ -353,7 +353,7 @@ module.exports = {
         : otpDetail && otpDetail.verificaionAttempt > 3
         ? "OTP verify exceeded!"
         : "Otp expired";
-      if (!otpDetail || otpDetail && otpDetail.verificaionAttempt > 3) {
+      if (!otpDetail || (otpDetail && otpDetail.verificaionAttempt > 3)) {
         return res.status(400).send({
           success: false,
           message,
@@ -367,11 +367,9 @@ module.exports = {
         ) > 1
           ? true
           : false;
-          console.log(commonFunctions.get_time_diff(
-            new Date(),
-            otpDetail.updateAt,
-            "minutes"
-          ))
+      console.log(
+        commonFunctions.get_time_diff(new Date(), otpDetail.updateAt, "minutes")
+      );
       if (isExpired || otpDetail.otp != otp) {
         await otpVerification.updateOne(
           { userId: userId },
@@ -451,32 +449,33 @@ const sendOtp = async (userDetail, isResent) => {
         });
         commonFunctions.sendEmail(template);
         resolve("OTP send");
-      }
-      let getTimeDiff = commonFunctions.get_time_diff(
-        new Date(),
-        previousOtp.updateAt,
-        // "hours"
-        'minutes'
-      );
-      let isExpire =
-        getTimeDiff > 1 || previousOtp.resentAttempt < 3 ? true : false; // Currently set as 5 mint
-        if (!isExpire) {
-          resolve("limit exceeded");
-        }
-        let otpVerficationDetail = {
-          otp: otp,
-          verificaionAttempt: 0,
-          resentAttempt: isResent || !(getTimeDiff > 1) ? previousOtp.resentAttempt + 1 : 0,
-          updateAt: new Date(),
-        };
-        if (getTimeDiff > 1) otpVerficationDetail.createdAt = new Date();
-        await otpVerification.updateOne(
-          { userId: userDetail.userId },
-          otpVerficationDetail
+      }else{
+        let getTimeDiff = commonFunctions.get_time_diff(
+          new Date(),
+          previousOtp.updateAt,
+          // "hours"
+          "minutes"
         );
-        commonFunctions.sendEmail(template);
+        if (getTimeDiff < 1  && previousOtp.resentAttempt >= 3) {
+          resolve("limit exceeded");
+        }else{
+          let otpVerficationDetail = {
+            otp: otp,
+            verificaionAttempt: 0,
+            resentAttempt: getTimeDiff < 1 ? previousOtp.resentAttempt + 1 : 0,
+            updateAt: new Date(),
+          };
+          if (getTimeDiff > 1) otpVerficationDetail.createdAt = new Date();
+          await otpVerification.updateOne(
+            { userId: userDetail.userId },
+            otpVerficationDetail
+          );
+          commonFunctions.sendEmail(template);
 
-      resolve("OTP send");
+          resolve("OTP send");
+        }  
+      }
+    
     } catch (error) {
       reject(error.message);
     }
