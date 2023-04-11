@@ -367,9 +367,6 @@ module.exports = {
         ) > 1
           ? true
           : false;
-      console.log(
-        commonFunctions.get_time_diff(new Date(), otpDetail.updateAt, "minutes")
-      );
       if (isExpired || otpDetail.otp != otp) {
         await otpVerification.updateOne(
           { userId: userId },
