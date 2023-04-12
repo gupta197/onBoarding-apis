@@ -30,8 +30,13 @@ app.post("/resendOtp",auth.resendOtp);
 // Handle multiple routes like 2FA and User details
 app.use("/user",users);
 
+// Home page API
 app.get('/',(req,res)=>{
     res.send("Welcome to authentication and authorization on Boarding APIS")
+})
+//No Page API
+app.get('**',(req,res)=>{
+    res.send("Page Not Found!")
 })
 
 
