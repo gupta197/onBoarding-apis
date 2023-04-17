@@ -1,7 +1,7 @@
-const express = require("express");
-const users = require('./routes/userRoute')
-
-const app = express();
+const express = require("express"),
+ users = require('./routes/userRoute'),
+ userController = require('./controller/userController'),
+ app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
@@ -27,6 +27,10 @@ app.post("/resetPassword/:id/:token",auth.resetPassword);
 app.post("/verifyOTP",auth.verifyOTP);
 //otp share
 app.post("/resendOtp",auth.resendOtp);
+
+//Contact Support API
+app.post("/contact-support",userController.contactSuppport);
+
 // Handle multiple routes like 2FA and User details
 app.use("/user",users);
 
