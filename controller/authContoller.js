@@ -2,19 +2,24 @@ const User = require("../model/user");
 const VerificationLinks = require("../model/verificationLinks");
 const otpVerification = require("../model/otpVerification");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken"),
+Joi = require('joi')
 const commonFunctions = require("../commonFunctions");
 module.exports = {
   login: async (req, res) => {
     try {
       // Get user input
       const { email, password } = req.body;
-      const mainValues = [email, password];
+      const schema = Joi.object({
+          email: Joi.string().email().required(),
+          password: Joi.string().required()
+      });
+      const { error } = schema.validate(req.body);
       // Validate user input
-      if (commonFunctions.checkBlank(mainValues)) {
+      if (error) {
         return res.status(400).send({
           success: false,
-          message: "All input is required",
+          message: error.message,
         });
       }
       // Validate if user exist in our database
@@ -54,6 +59,7 @@ module.exports = {
         message: "Invalid Credentials",
       });
     } catch (err) {
+      console.log(err)
       return res.status(500).send({
         success: false,
         message: err,
@@ -65,11 +71,17 @@ module.exports = {
     try {
       // Get user input
       const { firstName, lastName, email, password } = req.body;
-      const mainValues = [firstName, email, password];
-      if (commonFunctions.checkBlank(mainValues)) {
+      const schema = Joi.object({
+        email: Joi.string().email().required(),
+        firstName: Joi.string().required(),
+        lastName: Joi.string(),
+        password: Joi.string().required()
+    });
+    const { error } = schema.validate(req.body);
+      if (error) {
         return res.status(400).send({
           success: true,
-          message: "Bad Request",
+          message: error.message,
         });
       }
 
@@ -367,6 +379,9 @@ module.exports = {
         ) > 1
           ? true
           : false;
+      console.log(
+        commonFunctions.get_time_diff(new Date(), otpDetail.updateAt, "minutes")
+      );
       if (isExpired || otpDetail.otp != otp) {
         await otpVerification.updateOne(
           { userId: userId },
@@ -400,7 +415,6 @@ module.exports = {
           success: true,
           message: "LoggedIn Successfully",
           token,
-          user,
         });
       }
       return res.status(400).send({
