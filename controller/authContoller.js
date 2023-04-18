@@ -143,8 +143,12 @@ module.exports = {
   verifyEmail: async (req, res) => {
     try {
       const userId = req.query.q;
-      const mainValues = [userId];
-      if (commonFunctions.checkBlank(mainValues)) {
+      const schema = Joi.object({
+        userId: Joi.string().required()
+    });
+    const { error } = schema.validate({userId : req.query.q});
+    // Validate user input
+    if (error) {
         return res.status(400).send({
           success: true,
           message: "Bad Request",
