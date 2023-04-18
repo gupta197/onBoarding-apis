@@ -62,22 +62,12 @@ here is postman api for reference
 					"urlencoded": [
 						{
 							"key": "email",
-							"value": "defrozetroija-7060@yopmail.com",
+							"value": "**************",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "pass1",
-							"type": "text"
-						},
-						{
-							"key": "first_name",
-							"value": "test",
-							"type": "text"
-						},
-						{
-							"key": "last_name",
-							"value": "user",
+							"value": "***************",
 							"type": "text"
 						}
 					]
@@ -110,21 +100,7 @@ here is postman api for reference
 		{
 			"name": "verify Email",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDcxMGEzNDJlYWNjOTY0YTk5MGU0NSIsImlhdCI6MTY3ODE4NDkyNSwiZXhwIjoxNjc4MTkyMTI1fQ.FlBB69WhmPQFk8v5VFviIBeounxajorrfjykwRL0CiE"
-					}
-				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDcxMGEzNDJlYWNjOTY0YTk5MGU0NSIsImlhdCI6MTY3ODE4NDkyNSwiZXhwIjoxNjc4MTkyMTI1fQ.FlBB69WhmPQFk8v5VFviIBeounxajorrfjykwRL0CiE",
-						"type": "text",
-						"disabled": true
-					}
-				],
 				"url": {
 					"raw": "http://localhost:8080/verifyEmail?q=69237",
 					"protocol": "http",
@@ -155,7 +131,7 @@ here is postman api for reference
 					"urlencoded": [
 						{
 							"key": "email",
-							"value": "defrozetroija-7060@yopmail.com",
+							"value": "**********************",
 							"type": "text"
 						},
 						{
@@ -189,26 +165,8 @@ here is postman api for reference
 					"urlencoded": [
 						{
 							"key": "email",
-							"value": "defrozetroija-7060@yopmail.com",
+							"value": "**************",
 							"type": "text"
-						},
-						{
-							"key": "",
-							"value": "",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "",
-							"value": "",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "",
-							"value": "",
-							"type": "text",
-							"disabled": true
 						}
 					]
 				},
